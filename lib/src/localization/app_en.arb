@@ -1,5 +1,6 @@
 {
-  "appTitle": "copy_anywhere",
+  "@@locale": "en",
+  "appTitle": "Copy Anywhere",
   "@appTitle": {
     "description": "The title of the application"
   }

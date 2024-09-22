@@ -6,7 +6,8 @@ var port = 58888;
 void addMessageListener(Function(String message) callback) async {
   var interfaces = await NetworkInterface.list();
   for (var itf in interfaces) {
-    var skt = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port);
+    var skt = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port,
+        reuseAddress: true, reusePort: true);
     skt.joinMulticast(InternetAddress(host), itf);
     skt.listen((event) {
       if (event != RawSocketEvent.read) {
@@ -25,7 +26,8 @@ void addMessageListener(Function(String message) callback) async {
 void sendMessage(String message) async {
   var interfaces = await NetworkInterface.list();
   for (var itf in interfaces) {
-    var skt = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port);
+    var skt = await RawDatagramSocket.bind(InternetAddress.anyIPv4, port,
+        reuseAddress: true, reusePort: true);
     skt.joinMulticast(InternetAddress(host), itf);
     skt.send(message.codeUnits, InternetAddress(host), port);
   }
